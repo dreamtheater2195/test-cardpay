@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Basic meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="icon" href="css/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="css/favicon.ico" type="image/x-icon">
+    <title>Cardpay Result Page</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="clients/merchant_name/style.css">
+    <!-- Scripts -->
+    <script type="text/javascript" async src="js/fingerprint.js"></script>
+    <script>
+        window.cardBrand = "";
+        window.pageDataModule = {
+            data: {
+                "merchant-title": "Demo Store",
+                "merchant-description": "Description",
+                "autoSubmitFlag": false
+            }
+        };
+        /*window.cardpayIframeModule = {
+            display: "true"
+        };*/
+    </script>
+</head>
+
+<!--
+    Обязательно должно быть ID у BODY => payment-result
+
+    Статусы:
+    - result-danger
+    - result-warning
+    - result-success
+    - result-info
+ -->
+<body id="payment-result" class="result-success">
+
+    <div id="main-container">
+
+        <!-- Descriptions headers -->
+            <section id="payment-description">
+
+                <div id="header-cardpay">
+                    <div id="cardpay-logo">
+                        <a target="_blank" href="https://cardpay.com/"></a>
+                    </div>
+                    <div data-i18n="paymentinfo.cardpaytext" id="cardpay-header-text"></div>
+                </div>
+
+                <div id="header-merchant">
+                    <div id="merchant-logo">
+                        <a target="_blank" href="https://merchant.com/"></a>
+                    </div>
+                    <div id="merchant-title" data-i18n="paymentinfo.merchant.name"></div>
+                    <div id="merchant-description" data-i18n="paymentinfo.merchant.description"></div>
+                </div>
+
+                <div id="payment-info">
+                    <div id="payment-status">
+                        <div id="payment-status-icon"></div>
+                        <div id="payment-status-title">
+                            <span data-i18n="result.status.success"></span>
+                        </div>
+                        <div id="payment-status-description"></div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="payment-details">
+
+                <h2 data-i18n="result.blocktitle"></h2>
+
+                <div id="payment-details-info">
+                    <div class="payment-info-item" id="payment-item-status">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.status"></span>
+                        </div>
+                        <div class="payment-info-item-data">Declined by issuing bank</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-ordernumber">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.ordernumber"></span>
+                        </div>
+                        <div class="payment-info-item-data">3322-lC42</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-description">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.description"></span>
+                        </div>
+                        <div class="payment-info-item-data">qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-authcode">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.authcode"></span>
+                        </div>
+                        <div class="payment-info-item-data">gb56stYu</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-billing">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.address"></span>
+                        </div>
+                        <div class="payment-info-item-data">233223 AUS, asdf, asdf, adf</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-cardtype">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.cardtype"></span>
+                        </div>
+                        <div class="payment-info-item-data">VISA</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-cardnumber">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.cardnumber"></span>
+                        </div>
+                        <div class="payment-info-item-data">**** 6895</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-cardholder">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.cardholder"></span>
+                        </div>
+                        <div class="payment-info-item-data">JACK JONES</div>
+                    </div>
+
+                    <div class="payment-info-item" id="payment-item-total">
+                        <div class="payment-info-item-label">
+                            <span data-i18n="result.info.total"></span>
+                        </div>
+                        <div class="payment-info-item-data">EUR <span id="payment-item-total-amount">1000.00050005000</span></div>
+                    </div>
+                </div>
+
+
+                <div id="payment-info-actions">
+                    <form action="http://www.smartvista.com" method="post" target="_top">
+                        <input type="submit" data-i18n="result.back" id="formSubmit" class="btn btn-primary">
+                    </form>
+                </div>
+
+
+            </section>
+
+
+
+
+    <!-- Footer -->
+        <footer>
+            <div id="footer-cardpay">
+                <a href="http://www.cardpay.com/" target="_blank" id="cardpay-icon"></a>
+            </div>
+            <div id="footer-icons">
+                <!--<span id="visa-icon"></span>
+                <span id="mastercard-icon"></span>-->
+                <span id="jcb-icon"></span>
+                <span id="qiwi-icon"></span>
+                <span id="alipay-icon"></span>
+                <span id="pci-icon"></span>
+                <span id="onlinepay-icon"></span>
+                <span class="dl dl-bancodobrasil"></span>
+                <!--<span id="unionpay-icon"></span>-->
+            </div>
+            <div id="footer-text">
+                <div id="copyright" data-i18n="messages.copyright"></div>
+            </div>
+            <input type="hidden" name="cssURL" value="">
+        </footer>
+
+	</div>
+
+
+    <script type="text/javascript" async src="js/result.bundle.min.js"></script>
+</body>
+</html>

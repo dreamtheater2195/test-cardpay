@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Preload -->
+    <link rel="preload" href="js/payment.bundle.min.js" as="script">
+    <link rel="preload" href="css/base.css" as="style">
+    <link rel="preload" href="images/icons_sprite.png" as="image">
+    <!-- Basic meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="icon" href="css/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="css/favicon.ico" type="image/x-icon">
+    <title>Cardpay Payment Page</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="clients/merchant_name/style.css">
+    <!-- Scripts -->
+    <script type="text/javascript" async src="js/fingerprint.js"></script>
+    <script>
+        window.MI_THEMES_URL = ""; //  example: "/mi-themes/"
+        window.isUnionpayWallet = "false";
+        window.cancelNotificationModule = {
+            uuid: 'ebh4D6DbECA1Cfc5gAH8eDe8'
+        };
+        window.pageDataModule = {
+            data: {
+                "merchant-title": "Demo Store",
+                "merchant-description": "Description",
+                "order-number": "3322-lC42",
+                "total-amount": "251.00",
+                "currency": "EUR",
+                /*
+                 * If shipping/billing is ON
+                 */
+                "payment-data-shipping-copy": {
+                    "zip": "60667",
+                    "country": "United States",
+                    "state": "NY",
+                    "city": "Buffalo",
+                    "street": "Westsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+                    "phone": "+1-800-433-9014"
+                }
+            }
+        };
+        /*window.cardpayIframeModule = {
+            display: "true"
+        };*/
+    </script>
+</head>
+
+<!--
+
+    Классы для body
+
+    * Динамические - генерируемые (формируются на клиенте с помощью js при различных обстоятельствах)
+      - processing (во время сабмита формы)
+      - visa / master-card / union-pay etc. (во время определения типа карты в поле Card Number)
+
+    * Статически - генерируемые (формируются на сервере в зависимости от параметров)
+      - display-orderitems - показывать ли блок с order items
+      - display-shipping - показывать ли блок с shipping address
+      - display-billing - показывать ли блок с billing address
+
+ -->
+<body class="display-orderitems display-shipping display-billing ">
+
+<div id="main-container">
+    <!--<div class="container">
+        <div class="headerbar">
+            <a href="/" class="back">
+                <span class="oi link-back" data-glyph="arrow-thick-left"></span>
+                <span data-i18n="checkoutpage.back">Back to cart</span>
+            </a>
+        </div>
+    </div>-->
+    <form id="payment-form" class="" action="" method="post">
+
+        <!-- Descriptions headers -->
+        <section id="payment-description">
+
+            <div id="header-cardpay">
+                <div id="cardpay-logo">
+                    <a target="_blank" href="https://cardpay.com/"></a>
+                </div>
+                <div data-i18n="paymentinfo.cardpaytext" id="cardpay-header-text"></div>
+            </div>
+
+            <div id="header-merchant">
+                <div id="merchant-logo">
+                    <a target="_blank" href="https://merchant.com/"></a>
+                </div>
+                <div id="merchant-title" data-i18n="paymentinfo.merchant.name"></div>
+                <div id="merchant-description" data-i18n="paymentinfo.merchant.description"></div>
+            </div>
+
+            <div id="order-info">
+                <div id="order-number-cnt">
+                    <span data-i18n="paymentinfo.ordernumber"></span> <span id="order-number"></span>
+                </div>
+                <div id="total-amount-cnt">
+                    <span data-i18n="paymentinfo.total"></span> <span id="total-amount"></span> <span
+                        id="currency"></span>
+                </div>
+                <div id="order-description"></div>
+            </div>
+
+        </section>
+
+
+        <!-- Payment body  -->
+        <section id="payment-data">
+
+            <!-- IF ISSET Product list -->
+            <section id="order-details">
+
+                <h2 data-i18n="orderlist.blocktitle"></h2>
+
+                <div id="order-items">
+                    <ul id="order-item-list">
+                        <!-- Do not remove -->
+                        <li class="order-item">
+                            <div class="order-item-title">Item #1</div>
+                            <div class="order-item-description">Some description</div>
+                            <div class="order-item-info">
+                                <span class="order-item-quantity"><span data-i18n="orderlist.quantity">Quantity:</span>4</span>
+                                <span class="order-item-price"><span
+                                        data-i18n="orderlist.price">Price:</span>45.6 EUR</span>
+                                <span class="order-item-total-amount"><span data-i18n="orderlist.total">Total:</span>182.4 EUR</span>
+                            </div>
+                        </li>
+                        <li class="order-item">
+                            <div class="order-item-title">iPhone SE Space GreyiPhone SE Space GreyiPhone SE Space Grey
+                                #2Item#2Item#2Item#2Item#2Item#2Item#2Item#2Item#2Item#2
+                            </div>
+                            <div class="order-item-description">Some description</div>
+                            <div class="order-item-info">
+                                <span class="order-item-quantity"><span data-i18n="orderlist.quantity">Quantity:</span>null</span>
+                                <span class="order-item-price"><span
+                                        data-i18n="orderlist.price">Price:</span> EUR</span>
+                                <span class="order-item-total-amount"><span data-i18n="orderlist.total">Total:</span>NaN EUR</span>
+                            </div>
+                        </li>
+                        <li class="order-item">
+                            <div class="order-item-title">Item #1</div>
+                            <div class="order-item-description">ONEeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</div>
+                            <div class="order-item-info">
+                                <span class="order-item-quantity"><span data-i18n="orderlist.quantity">Quantity:</span>4</span>
+                                <span class="order-item-price"><span
+                                        data-i18n="orderlist.price">Price:</span>45.6 EUR</span>
+                                <span class="order-item-total-amount"><span data-i18n="orderlist.total">Total:</span>182.4 EUR</span>
+                            </div>
+                        </li>
+                        <li id="order-item-total" class="order-item">
+                            <span data-i18n="orderlist.itemstotal">Total amount:</span> NaN EUR
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-group fieldset-checkbox" id="order-confirm-block">
+                    <input id="input-order-confirm" type="checkbox" name="acceptProducts" value="">
+                    <label for="input-order-confirm" class="label-checkbox">
+                        <span data-i18n="orderlist.confirm"></span>
+                    </label>
+                </div>
+
+            </section>
+
+            <!-- Payment fields  -->
+            <section id="payment-data-fields">
+
+
+                <!-- Card fields -->
+                <div id="payment-data-card"><!-- CARD -->
+
+                    <h2 data-i18n="paymentdata.card.blocktitle"></h2>
+
+                    <div id="payment-data-card-fields">
+
+                        <div class="form-group" id="card-number-field">
+                            <label class="form-label" for="input-card-number">
+                                <span data-i18n="paymentdata.card.number.label"></span><span class="required">*</span>
+                            </label>
+                            <div class="form-input">
+                                <input id="input-card-number" data-i18n="paymentdata.card.number.placeholder" required
+                                       type="text" name="PAN" autocomplete="off" value="">
+                                <span id="card-number-type"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="card-holder-field">
+                            <label class="form-label" for="input-card-holder">
+                                <span data-i18n="paymentdata.card.holder.label"></span><span class="required">*</span>
+                            </label>
+                            <div class="form-input">
+                                <input id="input-card-holder" data-i18n="paymentdata.card.holder.placeholder"
+                                       type="text" required autocapitalize='characters' name="cardholderName">
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group" id="card-holder-email-field">
+                            <label class="form-label" for="input-card-holder-email">
+                                <span data-i18n="paymentdata.card.email.label"></span><span class="required">*</span>
+                            </label>
+                            <div class="form-input">
+                                <input id="input-card-holder-email" data-i18n="paymentdata.card.email.placeholder"
+                                       type="email" name="email" value="">
+                            </div>
+                        </div>-->
+
+                        <!-- XM bank field -->
+                        <!--<div class="form-group" id="bank-field">
+                            <label class="form-label">
+                                <span data-i18n="bank.label"></span>
+                            </label>
+                            <div class="form-input">
+                                <select id="input-bank" name="cupBank">
+                                    <option disabled="" selected="" value="-"></option>
+                                    <option value="上海银行">上海银行</option>
+                                </select>
+                            </div>
+                        </div>-->
+
+
+                        <div class="form-group" id="card-expires-field">
+                            <label class="form-label" for="card-expires-month">
+                                <span data-i18n="paymentdata.card.expires.label"></span><span class="required">*</span>
+                            </label>
+                            <div class="form-input">
+                                <select id="card-expires-month" required name="month">
+                                    <option data-i18n="paymentdata.card.expires.month" selected disabled
+                                            value="0"></option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <span id="card-expires-delimiter">/</span>
+                                <select id="card-expires-year" required name="year">
+                                    <option data-i18n="paymentdata.card.expires.year" selected disabled
+                                            value="0"></option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="card-cvc-field">
+                            <label class="form-label" for="input-card-cvc">
+                                <span data-i18n="paymentdata.card.cvc.label"></span><span class="required">*</span>
+                            </label>
+                            <div class="form-input">
+                                <input data-i18n="paymentdata.card.cvc.placeholder" id="input-card-cvc" required
+                                       type="password" autocomplete="off" name="CVV2" placeholder="" maxlength="3"
+                                       value="">
+                                <div id="cvc-hint">
+                                    <span id="cvc-hint-toggle"></span>
+                                    <div id="cvc-hint-bubble">
+                                        <div data-i18n="paymentdata.card.cvc.hint" id="cvc-hint-text"></div>
+                                        <div id="cvc-hint-card"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IF ISSET Shipping fields -->
+                <div id="payment-data-shipping">
+
+                    <h2 data-i18n="paymentdata.address.shippingtitle"></h2>
+
+                    <div id="payment-data-shipping-fields">
+
+                        <div id="payment-data-shipping-copy"></div>
+
+                        <div class="form-group fieldset-checkbox" id="use-as-billing-field">
+                            <input id="use-as-billing" type="checkbox" name="" value="">
+                            <label for="use-as-billing" class="label-checkbox">
+                                <span data-i18n="paymentdata.address.use-as-billing"></span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IF ISSET Billing Fields -->
+                <div id="payment-data-billing">
+
+                    <h2 data-i18n="paymentdata.address.billingtitle"></h2>
+
+                    <div id="payment-data-billing-fields">
+
+                        <div class="form-group" id="billing-country-field">
+                            <label class="form-label" for="input-billing-country">
+                                <span data-i18n="paymentdata.address.country.label"></span>
+                            </label>
+                            <div class="form-input">
+                                <select id="input-billing-country" name="country">
+                                    <option data-i18n="paymentdata.address.country.select" disabled selected
+                                            value="0"></option>
+                                    <option value="1">First city</option>
+                                    <option value="2">Second city</option>
+                                    <!-- ... -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="billing-state-field">
+                            <label class="form-label" for="input-billing-state">
+                                <span data-i18n="paymentdata.address.state.label"></span>
+                            </label>
+                            <div class="form-input">
+                                <input data-i18n="paymentdata.address.state.placeholder" id="input-billing-state"
+                                       type="text" name="stateOrProvince" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="billing-city-field">
+                            <label class="form-label" for="input-billing-city">
+                                <span data-i18n="paymentdata.address.city.label"></span>
+                            </label>
+                            <div class="form-input">
+                                <input data-i18n="paymentdata.address.city.placeholder" id="input-billing-city"
+                                       type="text" name="city" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="billing-street-field">
+                            <label class="form-label" for="input-billing-street">
+                                <span data-i18n="paymentdata.address.street.label"></span>
+                            </label>
+                            <div class="form-input">
+                                <input data-i18n="paymentdata.address.street.placeholder" id="input-billing-street"
+                                       type="text" name="street" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="billing-zip-field">
+                            <label class="form-label" for="input-billing-zip">
+                                <span data-i18n="paymentdata.address.zip.label"></span>
+                            </label>
+                            <div class="form-input">
+                                <input data-i18n="paymentdata.address.zip.placeholder" id="input-billing-zip"
+                                       type="text" name="zip" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="billing-phone-field">
+                            <label class="form-label" for="input-billing-phone">
+                                <span data-i18n="paymentdata.address.phone.label"></span>
+                            </label>
+                            <div class="form-input">
+                                <input data-i18n="paymentdata.address.phone.placeholder" id="input-billing-phone"
+                                       type="text" name="phone" value="">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Accept block -->
+                <div id="payment-data-accept">
+
+                    <div class="form-group fieldset-checkbox" id="accept-terms-field">
+                        <input id="accept-terms" required type="checkbox" name="chkAgree" value="">
+                        <label class="label-checkbox" for="accept-terms">
+                            <span data-i18n="privacypolicy.agree"></span> <a class="modal-toggle" data-modal="privacy"
+                                                                             id="terms-tooltip"
+                                                                             data-i18n="privacypolicy.linktext"
+                                                                             href="#"></a>
+                        </label>
+                    </div>
+
+                </div>
+
+
+                <!-- Payment actions -->
+                <div id="payment-actions">
+
+                    <div class="form-group">
+                        <input id="action-submit" data-i18n="paymentdata.actions.submit" class="btn btn-primary"
+                               type="submit">
+                        <button id="action-cancel" data-i18n="paymentdata.actions.cancel" class="btn btn-secondary"
+                                href="#"></button>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="fingerprint" value="">
+        <input type="hidden" name="omitShipAddress" value="">
+        <input type="hidden" name="locale" value="">
+        <input type="hidden" name="holdOnly" value="">
+        <input type="hidden" name="uuid" value="">
+        <input type="hidden" name="mayOmitAddress" value="">
+        <input type="hidden" name="hideTerms" value="">
+        <input type="hidden" name="showEmailField" value="">
+        <input type="hidden" name="useCustomCSS" value="essential">
+        <input type="hidden" name="itemsList" value="">
+        <input type="hidden" name="cssURL" value="">
+        <input type="hidden" name="shopName" value="">
+        <input type="hidden" name="orderDescription" value="">
+        <input type="hidden" name="orderNumber" value="">
+
+    </form>
+
+    <!-- Footer -->
+    <footer>
+        <div id="footer-cardpay">
+            <a href="http://www.cardpay.com/" target="_blank" id="cardpay-icon"></a>
+        </div>
+        <div id="footer-icons">
+            <span id="visa-icon"></span>
+            <span id="mastercard-icon"></span>
+            <span id="jcb-icon"></span>
+            <span id="unionpay-icon"></span>
+            <span id="pci-icon"></span>
+        </div>
+        <div id="footer-text">
+            <div id="copyright" data-i18n="messages.copyright"></div>
+        </div>
+    </footer>
+
+
+</div>
+
+
+<div id="progress">
+    <div data-i18n="messages.progress"></div>
+</div>
+
+
+<!-- Modals & Overlays -->
+<div id="overlay">
+
+    <!-- Privacy modal -->
+    <div id="modal-privacy" class="modal">
+        <div class="modal-header">
+            <h2 data-i18n="privacypolicy.modal.title"></h2>
+            <div class="modal-close">&times;</div>
+        </div>
+        <div class="modal-body"><p>This policy describes the ways we collect, store, use, and protect your personal information. You accept this policy and consent to such collection, storage and use when you use our products, services or any other features, technologies or functionalities offered by us on our website or through any other means (collectively 'the CardPay Inc. Services'). We may amend this policy at any time by posting a revised version on our website. The revised version will be effective at the time we post it. In addition, if the revised version includes a substantial change, we will provide you with 30 days' prior notice by posting notice of the change on the 'Policy Updates' page of our website. After this 30 days notice, you will be considered as having expressly consented to all amendments to this policy.</p> <h2>How we collect information about you</h2> <p>When you visit the CardPay Inc. website or use the CardPay Inc. Services, we collect your IP address and standard web log information, such as your browser type and the pages you accessed on our website.</p> <p>When you are using the CardPay Inc. Services, we collect information about your transactions and your other activities on our website or using the CardPay Inc. Services and we may collect information about your computer or other access device for fraud prevention purposes.</p> <h2>How we use cookies</h2> <p>When you access our website, we, or companies we hire to track how our website is used, may place small data files called 'cookies' on your computer.</p> <p>We may send longer-lasting cookies to display your billing address details on our payment form, so that you don't need to retype the billing address each time you make payment by CardPay Inc..</p> <p>We encode our cookies so that only we can interpret the information stored in them. You are free to decline our cookies if your browser permits, but doing so may interfere with your use of our website.</p> <p>We and our service-providers also use cookies to customize our services, content and advertising; measure promotional effectiveness, and promote trust and safety. You may encounter cookies from third parties when using the CardPay Inc. Services on certain websites that we do not control (for example, if you view a webpage created by a third party or use an application developed by a third party, there may be a cookie placed by that web page or application).</p> <h2>How we protect and store personal information</h2> <p>Throughout this policy, we use the term 'personal information' to describe information that can be associated with a specific person and can be used to identify that person. We do not consider personal information to include information that has been anonymized so that it does not identify a specific user.</p> <p>We store and process your personal information on our computers in the UK and we protect it by maintaining physical, electronic and procedural safeguards. We use computer safeguards such as firewalls and data encryption, we enforce physical access controls to our buildings and files, and we authorize access to personal information only for those employees who require it to fulfill their job responsibilities.</p> <h2>How we use the personal information we collect</h2> <p>Our primary purpose in collecting personal information is to provide you with a safe, smooth, efficient, and customized experience. To that end, we use your personal information to:</p> <ul> <li>provide the services and customer support you request;</li> <li>process transactions and send notices about your transactions;</li> <li>resolve disputes, collect fees, and troubleshoot problems;</li> <li>prevent potentially prohibited or illegal activities, and enforce our User Agreement;</li> <li>customize, measure, and improve our services and the content and layout of our website;</li> <li>deliver targeted marketing, service update notices, and promotional offers based on your communication preferences;</li> <li>compare information for accuracy and verify it with third parties.</li> </ul> <h2>Marketing</h2> <p>We do not sell or rent your personal information to third-parties for their marketing purposes without your explicit consent. We may combine your information with information we collect from other companies and use it to improve and personalize our services, content and advertising. If you do not wish to receive marketing communications from us or participate in our ad-customization programs, simply indicate your preference by logging into your account going to the Profile subtab under the My Account tab and adjusting your preferences or by following the directions provided with the communication or advertisement.</p> <h2>How we share personal information with other CardPay Inc. users</h2> <p>To process your payments, we need to share some of your personal information with the person or company that you are paying or is paying you. Your contact information, date of sign-up, the number of payments you have received from verified CardPay Inc. users, and whether you have verified control of a bank account are provided to other CardPay Inc. users who you transact with through CardPay Inc.. In addition, this and other information may also be shared with third parties when you use these third parties to access CardPay Inc. services. Unless you agreed to it, these third parties are not allowed to use this information for any other purpose other than to enable the CardPay Inc. Services.</p> <p>If you are buying goods or services and pay through CardPay Inc., we may also provide the seller with your confirmed credit card billing address to help complete your transaction with the seller. The seller is not allowed to use this information to market their services to you unless you have agreed to it.</p> <p>We work with third parties, including merchants to enable them to accept or facilitate payments from or to you using CardPay Inc. In doing so, a third party may share information about you with us, such as your email address or mobile phone number, when a payment is sent to you or, when you attempt to pay that merchant or through that third party. We use this information to confirm to that you are a CardPay Inc. customer and that CardPay Inc. as a form of payment can be enabled, or where a payment is sent to you to send you notification that you have received a payment.</p> <p>Regardless, we will not disclose your credit card number or bank account number to anyone you have paid or who has paid you through CardPay Inc. or with the third parties that offer or use the CardPay Inc. Services, except with your express permission or if we are required to do so to comply with credit card association rules, a valid regulatory or law enforcement request, or, to cooperate in an ongoing law enforcement investigation, as otherwise required by law.</p> <h2>How we share personal information with other parties</h2> <ul> <li>Service providers under contract who help with parts of our business operations; (fraud prevention, collection activities, marketing, technology services). Our contracts dictate that these service providers only use your information in connection with the services they perform for us and not for their own benefit.</li> <li>Companies that we plan to merge with or be acquired by. (Should such a combination occur, we will require that the new combined entity follow this privacy policy with respect to your personal information. If your personal information could be used contrary to this policy, you will receive prior notice). </li><li>Law enforcement, government officials, or other third parties when: <ul> <li>we are compelled to do so by a subpoena, court order or similar legal procedure,</li> <li>we need to do so to comply with law or credit card association rules</li> <li>we are cooperating with an ongoing law enforcement investigation,</li> <li>we believe in good faith that the disclosure of personal information is necessary to prevent physical harm or financial loss, to report suspected illegal activity, or to investigate violations of our User Agreement.</li> </ul> </li><li>Other third parties with your consent or direction to do so.</li> </ul> <p>Please note that these third parties may be in other countries where the laws on processing personal information may be less stringent than in your country.</p> <strong>CardPay Inc. will not sell or rent any of your personal information to third parties in the normal course of doing business and only shares your personal information with third parties as described in this policy.</strong></div>
+    </div>
+
+    <div class="modal-center"></div>
+</div>
+<script type="text/javascript" async src="js/payment.bundle.min.js"></script>
+<script>
+    function redirectToCancelUrl() {
+        var form = $('<form></form>');
+        form.attr('method', 'get');
+        form.attr('action', 'http://test.com');
+        form.attr('target', '_top');
+
+        form.appendTo('body').submit();
+    }
+</script>
+</body>
+</html>
