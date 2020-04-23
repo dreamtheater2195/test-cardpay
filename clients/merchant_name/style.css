@@ -1,3 +1,336 @@
 @import "../default/style.css";
 
 /* Redefine default styles here */
+html {
+  background: #fff;
+}
+
+body:not(#payment-result) {
+  font-size: 14px;
+}
+
+body:not(#payment-result) #main-container {
+  border: 0;
+  margin: 50px auto;
+}
+
+body:not(#payment-result) #payment-form {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+/* ----------------------Payment description----------------------- */
+
+body:not(#payment-result) #payment-description {
+  position: unset;
+  width: 40%;
+  margin-left: 24px;
+  font-size: 14px;
+}
+body:not(#payment-result) #payment-data {
+  width: 60%;
+}
+body:not(#payment-result) #payment-data, #payment-description {
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  padding: 32px;
+}
+body:not(#payment-result) #header-cardpay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body:not(#payment-result) #cardpay-logo a {
+  display: inline-block;
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1ODAgMjU0Ij48cGF0aCBmaWxsPSIjMDBiOTAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01NTEuNzYyIDBINTgwdjExNC41MjdoLTI3LjI3di02Ljg5N2MtMS45MTQtLjM5NC0zLjIxMi0uMzM3LTQuNTU0IDEuMjMzLTUuMzUgNi4yNi0xMi43IDcuOTAxLTIwLjYyNiA3LjczLTE2LjQ5Ni0uMzUyLTI4LjczOC05LjMwMS0zMy43NTctMjUuMzEtNC4zNjgtMTMuOTExLTMuOTY1LTI3LjgzNyAyLjM1NC00MS4yMyA3LjMzOC0xNS41NCAyNS4xMzQtMjMuMTczIDQxLjc4My0xOC4xNjEgMy43MTIgMS4xMiA2LjA0OSAyLjY5IDguNTU1IDUuNTczIDEuNTg5IDEuODI2IDIuODgyIDIuMTkgNS4yNzcgMi4xOVYwem0tMjkuNzggODUuODA4YzIuNTQxIDUuODA0IDcuNTMgOC40MTkgMTMuODY3IDguNDM2aC4wNjhjNi4xNCAwIDExLjExNy0yLjM1OSAxMy45OC03Ljg4NCA0LjIwNy04LjExNCA0LjIyMy0xNi40NjEuNDk5LTI0LjY4LTIuNjkyLTUuOTQxLTcuNzMyLTguNzg3LTE0LjQ1LTguNzU1LTYuMzg1LjAxOC0xMC44MzQgMi4wNTMtMTMuOTEgOC4zMjgtMy4zODcgNi44OTgtMy40MzQgMTYuODM1LS4wNTQgMjQuNTU1ek0zNTMuNDA4IDMyLjAxM2M2LjE0Ni0xLjg4IDEyLjMxLTIuODIyIDE4LjQ0OC0yLjgyMiA3LjAyMyAwIDE0LjAxNCAxLjIzMiAyMC45MDkgMy42OTkgMTAuNjY3IDMuODE3IDE2LjI2NCAxMS44MzIgMTcuNjk2IDIyLjY1Ny4yOTYgMi4yNDYuNDU2IDQuNTI3LjQ1OCA2Ljc5My4wMzkgMTYuMzY1LjAyMyA1MS4xNTUuMDIzIDUxLjE1NWgtMjUuOTg4di02LjI4M2MtMi4zNDUtLjgyNi0zLjUzNC0uMDA1LTUuMjU2IDEuNDI1LTUuNzU5IDQuNzgxLTExLjg0IDYuODA1LTE5LjI4MiA2LjkxLTguMzE2LjExNy0xNi4wMTEtMS41OTMtMjIuNDc1LTYuOTY4LTEzLjMyMy0xMS4wODItMTMuNjY3LTM1LjQyNCA3LjMwNS00NC40NCA2LjU2Mi0yLjgyMyAxMy41MDEtMy40NTMgMjAuNTQ0LTMuNTEgNS44NzctLjA1IDExLjc1Ni0uMDEgMTcuNzU0LS4wMS42NTUtNi4xNy0xLjg3LTEwLjE5MS02Ljg4My0xMS4zNzYtNy43MTUtMS44MjQtMTMuNTM0LjUzMy0xNS44MyA2LjUxaC0yOC4yMDhjLjI3MS0yLjAwOCAxLjM2My02LjI2OCAyLjYyMy05LjAyMyAzLjUzNi03LjcyMyAxMC4xMTktMTIuMjU3IDE4LjE2Mi0xNC43MTd6bTguMzY5IDYxLjk0NWMyLjI2Ljk1OCA0LjcxNSAxLjQ5IDcuMTkxIDEuNDkgMy4xOTYgMCA2LjQyNy0uODg2IDkuMzM0LTIuODkgNS41NC0zLjgxNyA1LjY4LTkuNTM3IDUuMzg5LTE1LjU3NiAwIDAtMTAuNDMyLS4xOTgtMTUuNDg0LjA4Ni0yLjMzLjEzLTUuMDEuNTUzLTcuMDk1IDEuODkyLTIuNzkgMS43ODgtNC4yMjkgNC4wNDItNC4xODggNy4yNTIuMDQxIDMuNDQ2IDEuODU2IDYuNDc3IDQuODUzIDcuNzQ2em0tODkuNDE4LTY0LjE1Yy0xNC44MjQgMi4wODMtMjUuOTM5IDkuMzA0LTMyLjAyMSAyMi45Ny0zLjk1IDguODY3LTQuNjMzIDE4LjE2OC0zLjI1NiAyNy42MDcgMS45NTYgMTMuNDI1IDguNDUgMjQuMDcgMjEuMjA1IDMwLjMzIDEwLjA1NyA0LjkzMSAyMC44MDYgNS43NSAzMS43ODcgMy43NyAxMC4wNDItMS44MDYgMTguNDYxLTYuMzUzIDI0LjUtMTQuNTM2IDMuNDI3LTQuNjQ0IDUuNDktOS45ODEgNS44MjItMTUuODY3aC0yNi4zMDJjLS45NDggMC0xLjU2LjUyNi0xLjk1OCAxLjQ2LS43OTQgMS44NjMtMS44NDEgMy44Mi0zLjQyNCA1LjA3MS00Ljc4OCAzLjc4OC0xNi42MDYgMy45NDUtMjAuODgtNC41NzItNC4xNDctOC4yNjQtNC4xNTEtMTYuODYtMS4wMy0yNS4zMTMgMy4wNTMtOC4yNzEgMTAuNDMzLTEwLjI1NiAxOC4yOTMtOC40MjcgMi44MTQuNjU2IDQuOTYxIDIuMzY3IDYuMDI3IDQuOTgyLjU0NSAxLjMzNyAxLjQyMSAxLjc4MSAzLjA4OCAxLjc4MWwyNS4zNC0uMDI0Yy0uNzU3LTEwLjAxLTYuNTU4LTE4Ljg3Ny0xNS42NjItMjQuMDEtNy4yNzEtNC4wOTktMTUuMDA4LTUuODQtMjMuMDA3LTUuODQtMi44MTEgMC01LjY1NS4yMTUtOC41MjIuNjE5em0xOTUuOTc4IDIuODQ2Yy00LjUzNy43NTEtOC41NzUgMi44NTctMTEuNDg0IDYuNDE5LTEuMjc2IDEuNTY0LTIuNTEzIDIuMjE3LTQuNzM4IDEuNTM1di04LjkyNmgtMjcuMzR2ODEuOTY3aDI4LjIzN3MtLjE0LTI1LjI3LjE2Ny0zNi4zODZjLjMyNy0xMi4wMDEgNy4wMzQtMTguODE3IDE5LjI4MS0yMC4wMTcgNC4xMzctLjQwNyA4LjQ4NC0uNDY5IDEyLjU0MS0uNTkzVjMxLjEzN2MtNi4xNDUuMjYtMTEuMjguNjI1LTE2LjY2NCAxLjUxN3pNMTQuMjkyIDMxLjEzN2gxODcuNDNjNy44OCAwIDE0LjI5MiA2LjIyNCAxNC4yOTIgMTMuODc5djExNC4zODdjMCA3LjY1NS02LjQxMiAxMy44OC0xNC4yOTIgMTMuODhIMTQuMjkyQzYuNDExIDE3My4yODIgMCAxNjcuMDU3IDAgMTU5LjQwMlY0NS4wMTZjMC03LjY1NSA2LjQxLTEzLjg3OSAxNC4yOTItMTMuODc5ek0yNy40NSAxNDYuNjI0aDE2MS4xMTN2LTg4LjgzSDI3LjQ1djg4Ljgzem0zMzEuOTctNy41OGM2LjE0Ni0xLjg4MyAxMi4zMS0yLjgyNCAxOC40NDgtMi44MjQgNy4wMjIgMCAxNC4wMTEgMS4yMzIgMjAuOTA5IDMuNyAxMC42NjUgMy44MTcgMTYuMjY1IDExLjgzMiAxNy42OTUgMjIuNjU2YTUyLjkxIDUyLjkxIDAgMCAxIC40NiA2Ljc5M2MuMDM4IDE2LjM2Ny4wMiA1MS4xNTUuMDIgNTEuMTU1aC0yNS45ODd2LTYuMjgxYy0yLjM0NC0uODI3LTMuNTM0LS4wMDYtNS4yNTUgMS40MjUtNS43NiA0Ljc4LTExLjg0MiA2LjgwNS0xOS4yODQgNi45MS04LjMxNi4xMTYtMTYuMDEtMS41OTUtMjIuNDc0LTYuOTY5LTEzLjMyMi0xMS4wODMtMTMuNjY3LTM1LjQyMyA3LjMwNC00NC40NCA2LjU2NC0yLjgyMyAxMy41MDItMy40NTMgMjAuNTQ2LTMuNTA5IDUuODc1LS4wNDkgMTEuNzU0LS4wMSAxNy43NTMtLjAxLjY1NS02LjE3LTEuODctMTAuMTktNi44ODMtMTEuMzc3LTcuNzE2LTEuODI2LTEzLjUzMi41MzMtMTUuODMgNi41MWgtMjguMjA2Yy4yNjktMi4wMDkgMS4zNjEtNi4yNyAyLjYyMS05LjAyMiAzLjUzNi03LjcyNCAxMC4xMTctMTIuMjU4IDE4LjE2NC0xNC43MTd6bTguMzY2IDYxLjk0NWMyLjI2Mi45NTcgNC43MTUgMS40ODggNy4xOSAxLjQ4OCAzLjE5OCAwIDYuNDMtLjg4NSA5LjMzNy0yLjg5IDUuNTQtMy44MTYgNS42ODMtOS41MzMgNS4zODktMTUuNTc2IDAgMC0xMC40MzItLjE5NC0xNS40ODMuMDg4LTIuMzI5LjEzLTUuMDEuNTUyLTcuMDk0IDEuODkyLTIuNzkgMS43ODgtNC4yMjkgNC4wNC00LjE5MiA3LjI1Mi4wNDMgMy40NDUgMS44NTkgNi40NzcgNC44NTMgNy43NDZ6bS03NS42NDQtNjQuNzY5aC4wMDRjMTYuMjQuMDAxIDI3Ljk4MSA4LjQ1MyAzMy45NjYgMjMuNzUzIDUuMDgyIDEyLjk5NyA0LjQ1MSAzMi44OS0zLjg0MiA0Ni40NDMtOC44NTggMTQuNDc0LTI1LjkwMyAxOC41NjItMzkuODUyIDE0LjQ1Mi0zLjYzLTEuMDY4LTYuNzc1LTMuMDItOS4wNDYtNS45NzMtMS4xODctMS41NDQtMi40MTQtMi4xNTItNC42ODItMS41Mzd2MzguMzhoLTI4LjI1MlYxMzguMzIyaDI3LjI5NHY2Ljk2NGMxLjk2Ni4zOTIgMy4yNDguMzM1IDQuNTcxLTEuMjc0IDQuMzcyLTUuMzEzIDEwLjUwNS03LjM2IDE3LjIzMy03LjcyYTQ5LjI4IDQ5LjI4IDAgMCAxIDIuNjA2LS4wNzJ6bS0yMC43MzEgNTcuMDg4YzIuNzA5IDQuNTA2IDcuODA4IDYuNzA1IDEyLjk1NSA2LjcwNSA1LjQ3NyAwIDExLjAwOC0yLjQ5IDEzLjc2Ni03LjM0IDIuOTQ1LTUuMTcgMy42OTYtMTcuMjcgMS4xMDMtMjQuMDUtMi4wNDctNS4zNjMtNS43NzMtOS4wMzktMTEuODEyLTkuODAyLTYuNTItLjgyNi0xMi40OTIuNTk3LTE1Ljk5MiA2LjM5LTQuMzU0IDcuMjEyLTUuMDQxIDE5LjczOC0uMDIgMjguMDk3em0yMTguNjE1LTUzLjE5NWMtMi4wMDUgMC0yLjc0Ny42NS0zLjU0MSAyLjMxMSAwIDAtMTQuNDg3IDMzLjkwOC0xNS4wMjUgMzUuMTYtLjUzOSAxLjI1LTEuNTI4IDIuMzIzLTMuMTU2IDIuMzIzLTEuMjUyIDAtMi40NC0uMzA2LTMuNDItMi4xNjFsLTE3LjE1My0zNS45MjZjLS41MjUtMS4wOTktMS4xNjItMS43MDctMi44MzEtMS43MDdoLTI2LjEzN2wzNC4zMDYgNzAuODU3Yy42NSAxLjMwOS44NjUgMi42ODQuMTg5IDQuMTk5bC0xNi44NTIgMzguNTgxaDI1LjI0MmMxLjk2MSAwIDIuODgyLS40MDIgMy42ODYtMi4xMzFsNTAuMjQ5LTExMS41MDZoLTI1LjU1N3oiPjwvcGF0aD48L3N2Zz4=) no-repeat;
+  width: 104px;
+  height: 44px;
+}
+
+body:not(#payment-result) #merchant-logo {
+  display:none;
+}
+body:not(#payment-result) #merchant-title {
+  font-weight: bold;
+  text-align: left;
+  width: 100% !important;
+  margin: unset;
+}
+
+body:not(#payment-result) #merchant-title, #order-number-cnt, #total-amount-cnt {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 16px 0px;
+  border-bottom: 1px solid #dfdfdf;
+}
+body:not(#payment-result) #merchant-title {
+  padding-top: 0;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+body:not(#payment-result) #total-amount-cnt {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+body:not(#payment-result) #order-number-cnt, #total-amount-cnt {
+  color: #525c64;
+}
+
+body:not(#payment-result) #order-number-cnt span:first-child, #total-amount-cnt span:first-child {
+  flex: 1;
+  text-align: left;
+}
+
+body:not(#payment-result) #order-number {
+  color: #1a1f23;
+}
+
+body:not(#payment-result) #total-amount, #currency {
+  color: #1a1f23;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+/* ---------------------- Payment data ----------------------- */
+
+body:not(#payment-result) #payment-data-fields {
+  left: unset;
+  font-size: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body:not(#payment-result) #payment-data-card h2 {
+  display: block;
+  margin: 0 !important;
+  margin-bottom: 16px !important;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: left;
+  color: #1a1f23;
+}
+
+body:not(#payment-result) #payment-form .form-group {
+  margin-bottom: 16px;
+}
+
+body:not(#payment-result) #payment-form .form-label {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 8px;
+}
+body:not(#payment-result) #payment-form .required {
+  margin-left: 4px;
+}
+body:not(#payment-result) #payment-form .form-input {
+  width: 100%;
+}
+#payment-form .form-input select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+   -ms-appearance: none;
+    -o-appearance: none;
+       appearance: none;
+  position: relative;
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2MxYzFjMSIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCI+PHBhdGggZD0iTTI0IDI0SDBWMGgyNHYyNHoiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjEiLz48cGF0aCBkPSJNMTYuNTkgOC41OUwxMiAxMy4xNyA3LjQxIDguNTkgNiAxMGw2IDYgNi02LTEuNDEtMS40MXoiLz48L3N2Zz4=) no-repeat right;
+  background-position-x: calc(100% - 12px);
+}
+
+#payment-form .form-input select::-ms-expand {
+  display: none;
+}
+
+body:not(#payment-result) #payment-form .form-input input, #payment-form .form-input select {
+  border-radius: 4px !important;
+  border: 1px solid #c1c1c1;
+  color: #1a1f23;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+body:not(#payment-result) #card-expires-month, #card-expires-year {
+  width: 49%;
+}
+
+body:not(#payment-result) #card-expires-month {
+  margin-right: 2%;
+}
+
+body:not(#payment-result) #input-card-cvc {
+  width: 100% !important;
+  font-size: 16px !important;
+}
+
+body:not(#payment-result) #cvc-hint {
+  position: absolute;
+  margin-left: 0;
+  right: 15px;
+}
+body:not(#payment-result) #cvc-hint-toggle {
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siIHdpZHRoPSIxOHB4IiBoZWlnaHQ9IjE4cHgiPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMFYweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xMSAxOGgydi0yaC0ydjJ6bTEtMTZDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDEgMC04LTMuNTktOC04czMuNTktOCA4LTggOCAzLjU5IDggOC0zLjU5IDgtOCA4em0wLTE0Yy0yLjIxIDAtNCAxLjc5LTQgNGgyYzAtMS4xLjktMiAyLTJzMiAuOSAyIDJjMCAyLTMgMS43NS0zIDVoMmMwLTIuMjUgMy0yLjUgMy01IDAtMi4yMS0xLjc5LTQtNC00eiIvPjwvc3ZnPg==) no-repeat;
+  opacity: 0.5;
+}
+
+body:not(#payment-result) #payment-data-accept {
+  display: none;
+}
+
+body:not(#payment-result) #payment-actions {
+  margin-top: 24px;
+  padding: 0;
+}
+
+body:not(#payment-result) #payment-actions .form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body:not(#payment-result) #action-submit {
+  font-size: 14px;
+  width: 100%;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 7px;
+  font-weight: bold;
+}
+
+body:not(#payment-result) #action-cancel {
+  color: #1a1f23;
+  text-decoration: underline !important;
+  background: none;
+  margin-left: 0;
+  margin-top: 24px;
+  min-width: 0;
+  padding: 0;
+  height: auto;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+body:not(#payment-result) footer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 0;
+  padding: 0;
+  padding-top: 24px;
+}
+body:not(#payment-result) #footer-cardpay {
+  display: none;
+}
+
+body:not(#payment-result) #footer-text {
+  width: auto;
+}
+
+body:not(#payment-result) #copyright {
+  padding: 0;
+}
+
+@media (max-width: 1200px) {
+  body:not(#payment-result) #footer-text {
+    padding: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  body:not(#payment-result) #footer-icons {
+    margin-top: 0;
+  }
+}
+@media (max-width: 760px) {
+  body:not(#payment-result) #payment-form {
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  body:not(#payment-result) #main-container {
+    margin-top: 0;
+    margin-bottom: 32px;
+  }
+  body:not(#payment-result) #payment-description {
+    width: 100%;
+    border: 0;
+    margin-left: 0;
+    padding: 0;
+  }
+  body:not(#payment-result) #header-cardpay {
+    position: relative;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 32px 16px 24px 16px;
+  }
+  body:not(#payment-result) #header-merchant {
+    padding: 0 16px;
+  }
+  body:not(#payment-result) #merchant-title {
+    width: 100% !important;
+    padding-top: 16px;
+  }
+  body:not(#payment-result) #order-info {
+    padding: 0 16px;
+    border-bottom: 1px solid #dfdfdf;
+  }
+  body:not(#payment-result) #total-amount-cnt {
+    padding-bottom: 16px;
+  }
+
+  body:not(#payment-result) #payment-data {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    border-radius: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 16px;
+  }
+  body:not(#payment-result) #card-cvc-field .form-input {
+    padding-left: 0;
+  }
+  body:not(#payment-result) #cvc-hint-bubble {
+    margin-left: -240px;
+  }
+  body:not(#payment-result) #cvc-hint-bubble::after {
+    left: auto;
+    right: 23px;
+  }
+
+  body:not(#payment-result) footer {
+    flex-direction: column;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  body:not(#payment-result) #footer-text {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  body:not(#payment-result) #footer-icons {
+    margin-top: 0;
+  }
+  body:not(#payment-result) #footer-icons span {
+    margin-top: 0;
+  }
+}

@@ -1,4 +1,4 @@
-{3commas
+{
   "name": "cardpay-paymentpage",
   "version": "0.0.9",
   "description": "",
@@ -15,4 +15,3 @@
   },
   "dependencies": {}
 }
-
