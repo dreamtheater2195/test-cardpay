@@ -9,6 +9,12 @@ body:not(#payment-result) {
   font-size: 14px;
 }
 
+body:not(#payment-result).display-orderitems #order-details,
+body:not(#payment-result).display-shipping #payment-data-shipping,
+body:not(#payment-result).display-billing #payment-data-billing {
+  display: none;
+}
+
 body:not(#payment-result) #main-container {
   border: 0;
   margin: 50px auto;
@@ -105,11 +111,14 @@ body:not(#payment-result) #total-amount, #currency {
 /* ---------------------- Payment data ----------------------- */
 
 body:not(#payment-result) #payment-data-fields {
+  display: block;
   left: unset;
   font-size: 14px;
   width: 100%;
   margin: 0;
   padding: 0;
+  border: 0;
+  float: none;
 }
 
 body:not(#payment-result) #payment-data-card h2 {
@@ -193,6 +202,7 @@ body:not(#payment-result) #payment-data-accept {
 }
 
 body:not(#payment-result) #payment-actions {
+  width: 100% !important;
   margin-top: 24px;
   padding: 0;
 }
@@ -214,6 +224,7 @@ body:not(#payment-result) #action-submit {
 }
 
 body:not(#payment-result) #action-cancel {
+  width: auto;
   color: #1a1f23;
   text-decoration: underline !important;
   background: none;
